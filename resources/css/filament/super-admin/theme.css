@@ -1,4 +1,8 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
 @import '../../../../vendor/resma/filament-awin-theme/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
 
 :root {
     --primary-50: oklch(96.67% 0.016 22.18);

@@ -8,8 +8,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'vendor/resma/filament-awin-theme/resources/css/theme.css',
-                'resources/css/filament/super-admin/awin-theme.css',
+                'resources/css/filament/super-admin/theme.css',
             ],
             refresh: true,
         }),
