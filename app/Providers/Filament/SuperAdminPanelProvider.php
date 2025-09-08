@@ -52,6 +52,9 @@ class SuperAdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentAwinTheme::make(),
+            ])
+            ->viteTheme([
+                'resources/css/filament/super-admin/awin-theme.css',
             ]);
     }
 }

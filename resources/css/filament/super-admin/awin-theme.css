@@ -1,0 +1,15 @@
+@import '../../../../vendor/resma/filament-awin-theme/resources/css/theme.css';
+
+@theme inline {
+    --color-primary-50: #fff6ec;
+    --color-primary-100: #ffead3;
+    --color-primary-200: #ffd1a5;
+    --color-primary-300: #ffb06d;
+    --color-primary-400: #ff8232;
+    --color-primary-500: #ff5f0a;
+    --color-primary-600: #ff4500;
+    --color-primary-700: #cc2f02;
+    --color-primary-800: #a1250b;
+    --color-primary-900: #82220c;
+    --color-primary-950: #460d04;
+}
