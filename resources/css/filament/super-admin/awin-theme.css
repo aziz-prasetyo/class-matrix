@@ -1,15 +1,29 @@
 @import '../../../../vendor/resma/filament-awin-theme/resources/css/theme.css';
 
+:root {
+    --primary-50: oklch(96.67% 0.016 22.18);
+    --primary-100: oklch(94.24% 0.029 23.01);
+    --primary-200: oklch(88.66% 0.06 23.47);
+    --primary-300: oklch(82.91% 0.095 24.08);
+    --primary-400: oklch(77.33% 0.133 26.67);
+    --primary-500: oklch(71.88% 0.176 29.79);
+    --primary-600: oklch(66.02% 0.229 35.4);
+    --primary-700: oklch(52.92% 0.184 35.42);
+    --primary-800: oklch(40.3% 0.14 35.49);
+    --primary-900: oklch(27% 0.094 35.32);
+    --primary-950: oklch(20.67% 0.072 35.38);
+}
+
 @theme inline {
-    --color-primary-50: #fff6ec;
-    --color-primary-100: #ffead3;
-    --color-primary-200: #ffd1a5;
-    --color-primary-300: #ffb06d;
-    --color-primary-400: #ff8232;
-    --color-primary-500: #ff5f0a;
-    --color-primary-600: #ff4500;
-    --color-primary-700: #cc2f02;
-    --color-primary-800: #a1250b;
-    --color-primary-900: #82220c;
-    --color-primary-950: #460d04;
+    --color-primary-50: var(--primary-50);
+    --color-primary-100: var(--primary-100);
+    --color-primary-200: var(--primary-200);
+    --color-primary-300: var(--primary-300);
+    --color-primary-400: var(--primary-400);
+    --color-primary-500: var(--primary-500);
+    --color-primary-600: var(--primary-600);
+    --color-primary-700: var(--primary-700);
+    --color-primary-800: var(--primary-800);
+    --color-primary-900: var(--primary-900);
+    --color-primary-950: var(--primary-950);
 }
