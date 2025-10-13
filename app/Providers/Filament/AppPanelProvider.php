@@ -18,14 +18,14 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Resma\FilamentAwinTheme\FilamentAwinTheme;
 
-class SuperAdminPanelProvider extends PanelProvider
+class AppPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
             ->default()
-            ->id('super-admin')
-            ->path('super-admin')
+            ->id('app')
+            ->path('app')
             ->login()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -54,7 +54,7 @@ class SuperAdminPanelProvider extends PanelProvider
                 FilamentAwinTheme::make(),
             ])
             ->viteTheme([
-                'resources/css/filament/super-admin/theme.css',
+                'resources/css/filament/app/theme.css',
             ]);
     }
 }
