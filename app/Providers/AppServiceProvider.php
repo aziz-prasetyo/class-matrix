@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use BezhanSalleh\LanguageSwitch\LanguageSwitch;
 use Filament\Support\Facades\FilamentColor;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,5 +36,11 @@ class AppServiceProvider extends ServiceProvider
                 950 => 'oklch(20.67% 0.072 35.38)',
             ],
         ]);
+
+        LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
+            $switch
+                ->locales(['en','id'])
+                ->visible(outsidePanels: true);
+        });
     }
 }
