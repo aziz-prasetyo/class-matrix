@@ -20,8 +20,8 @@
             'fls-display-on fixed w-fit flex p-4 z-50',
             'top-0' => str_contains($outsidePanelsPlacement, 'top'),
             'bottom-0' => str_contains($outsidePanelsPlacement, 'bottom'),
+            'right-33' => str_contains($outsidePanelsPlacement, 'right'),
             'justify-start' => str_contains($outsidePanelsPlacement, 'left'),
-            'justify-end' => str_contains($outsidePanelsPlacement, 'right'),
             'justify-center' => str_contains($outsidePanelsPlacement, 'center'),
         ])>
             <div class="rounded-lg bg-gray-50 dark:bg-gray-950">
