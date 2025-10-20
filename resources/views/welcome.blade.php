@@ -12,6 +12,15 @@
 
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+            <script type="text/javascript">
+                const storedTheme = localStorage.getItem('theme');
+
+                document.documentElement.classList.toggle(
+                    'dark',
+                    storedTheme === 'dark' ||
+                    (storedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+                );
+            </script>
             @vite(['resources/css/app.css', 'resources/js/app.js'])
         @else
             <style>
