@@ -4,6 +4,7 @@
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
 @source '../../../../vendor/bezhansalleh/filament-language-switch/resources/views/**/*.blade.php';
+@source '../../../../vendor/awcodes/light-switch/resources/**/*.blade.php';
 
 :root {
     --primary-50: oklch(96.67% 0.016 22.18);
@@ -31,4 +32,8 @@
     --color-primary-800: var(--primary-800);
     --color-primary-900: var(--primary-900);
     --color-primary-950: var(--primary-950);
+}
+
+.right-33 {
+    right: 8.25rem;
 }
