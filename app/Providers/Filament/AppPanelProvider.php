@@ -3,6 +3,8 @@
 namespace App\Providers\Filament;
 
 use Awcodes\LightSwitch\LightSwitchPlugin;
+use BezhanSalleh\LanguageSwitch\Enums\Placement;
+use BezhanSalleh\LanguageSwitch\LanguageSwitch;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -58,5 +60,15 @@ class AppPanelProvider extends PanelProvider
             ->viteTheme([
                 'resources/css/filament/app/theme.css',
             ]);
+    }
+
+    public function boot(): void
+    {
+        LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
+            $switch
+                ->locales(['en','id'])
+                ->visible(outsidePanels: true)
+                ->outsidePanelPlacement(Placement::TopRight);
+        });
     }
 }
