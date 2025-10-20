@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Awcodes\LightSwitch\LightSwitchPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -52,6 +53,7 @@ class AppPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentAwinTheme::make(),
+                LightSwitchPlugin::make(),
             ])
             ->viteTheme([
                 'resources/css/filament/app/theme.css',
