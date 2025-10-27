@@ -63,12 +63,14 @@ class EditProfile extends Page implements HasSchemas
     {
         return $schema
             ->components([
-                Section::make('Profile Information')
-                    ->description('Update your account\'s profile information and email address.')
+                Section::make(__('auth/pages/edit-profile.section.profile.label'))
+                    ->description(__('auth/pages/edit-profile.section.profile.description'))
                     ->schema([
                         TextInput::make('name')
+                            ->label(__('filament-panels::auth/pages/edit-profile.form.name.label'))
                             ->required(),
                         TextInput::make('email')
+                            ->label(__('filament-panels::auth/pages/edit-profile.form.email.label'))
                             ->email()
                             ->required()
                             ->unique(ignoreRecord: true),
@@ -82,14 +84,16 @@ class EditProfile extends Page implements HasSchemas
     {
         return $schema
             ->components([
-                Section::make('Update Password')
-                    ->description('Ensure your account is using long, random password to stay secure.')
+                Section::make(__('auth/pages/edit-profile.section.password.label'))
+                    ->description(__('auth/pages/edit-profile.section.profile.description'))
                     ->schema([
                         TextInput::make('current_password')
+                            ->label(__('filament-panels::auth/pages/edit-profile.form.current_password.label'))
                             ->password()
                             ->required()
                             ->currentPassword(),
                         TextInput::make('password')
+                            ->label(__('filament-panels::auth/pages/edit-profile.form.password.label'))
                             ->password()
                             ->required()
                             ->rule(Password::default())
@@ -97,6 +101,7 @@ class EditProfile extends Page implements HasSchemas
                             ->dehydrateStateUsing(fn ($state): string => Hash::make($state))
                             ->same('passwordConfirmation'),
                         TextInput::make('passwordConfirmation')
+                            ->label(__('filament-panels::auth/pages/edit-profile.form.password_confirmation.label'))
                             ->password()
                             ->required()
                             ->dehydrated(false),
