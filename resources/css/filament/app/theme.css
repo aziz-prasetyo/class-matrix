@@ -37,3 +37,13 @@
 .right-33 {
     right: 8.25rem;
 }
+
+.fi-body .fi-topbar-ctn::before {
+    width: 100%;
+    background: none;
+
+    @media(width >= 64rem) {
+        width: calc(100% - var(--sidebar-width));
+        background: linear-gradient(to right, var(--color-gray-100) 2rem, transparent 2rem);
+    }
+}
