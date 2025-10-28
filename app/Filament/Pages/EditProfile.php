@@ -2,6 +2,10 @@
 
 namespace App\Filament\Pages;
 
+use DateTime;
+use DateTimeZone;
+use Exception;
+use Filament\Forms\Components\Select;
 use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
 use LogicException;
@@ -74,8 +78,34 @@ class EditProfile extends Page implements HasSchemas
                             ->email()
                             ->required()
                             ->unique(ignoreRecord: true),
-                    ]),
+                    ])
+                    ->columnSpan(['lg' => 2]),
+                Section::make([
+                    Select::make('timezone')
+                        ->label('Timezone')
+                        ->options(function () {
+                            $list = timezone_identifiers_list();
+
+                            return array_combine($list, array_map([$this, 'formatTimezoneLabel'], $list));
+                        })
+                        ->getSearchResultsUsing(function (string $search) {
+                            $allTimezones = timezone_identifiers_list();
+                            $filteredTimezones = array_filter(
+                                $allTimezones,
+                                fn($tz) => str_contains(strtolower($tz), strtolower($search))
+                            );
+
+                            $options = [];
+                            foreach ($filteredTimezones as $tz) {
+                                $options[$tz] = $this->formatTimezoneLabel($tz);
+                            }
+
+                            return $options;
+                        })
+                        ->searchable(),
+                ]),
             ])
+            ->columns(3)
             ->model($this->getUser())
             ->statePath('profileData');
     }
@@ -156,7 +186,7 @@ class EditProfile extends Page implements HasSchemas
             ->submit('editPasswordForm');
     }
 
-    public function getUser(): Authenticatable & Model
+    public function getUser(): Authenticatable|Model
     {
         $user = Filament::auth()->user();
 
@@ -188,5 +218,17 @@ class EditProfile extends Page implements HasSchemas
             ->success()
             ->title(__('filament-panels::auth/pages/edit-profile.notifications.saved.title'))
             ->send();
+    }
+
+    private function formatTimezoneLabel(string $timezoneIdentifier): string
+    {
+        try {
+            $dateTime = new DateTime('now', new DateTimeZone($timezoneIdentifier));
+            $offsetString = $dateTime->format('P');
+
+            return "GMT{$offsetString} {$timezoneIdentifier}";
+        } catch (Exception $e) {
+            return $timezoneIdentifier;
+        }
     }
 }
