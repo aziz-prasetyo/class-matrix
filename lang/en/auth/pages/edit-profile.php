@@ -18,6 +18,11 @@ return [
 
     'form' => [
 
+        'identity_number' => [
+            'label' => 'Identity number',
+            'helper_text' => 'Identity numbers such as NIK/NIP/NIDN.'
+        ],
+
         'timezone' => [
             'label' => 'Timezone',
         ],

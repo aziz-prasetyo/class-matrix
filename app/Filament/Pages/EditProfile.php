@@ -81,6 +81,12 @@ class EditProfile extends Page implements HasSchemas
                             ->email()
                             ->required()
                             ->unique(ignoreRecord: true),
+                        TextInput::make('identity_number')
+                            ->label(__('auth/pages/edit-profile.form.identity_number.label'))
+                            ->numeric()
+                            ->required()
+                            ->unique(ignoreRecord: true)
+                            ->helperText(__('auth/pages/edit-profile.form.identity_number.helper_text')),
                     ])
                     ->columnSpan([
                         'xl' => 2,
