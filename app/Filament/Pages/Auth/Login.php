@@ -7,6 +7,8 @@ use Filament\Auth\Pages\Login as BasePage;
 
 class Login extends BasePage
 {
+    protected string $view = 'filament.pages.auth.login';
+
     public function mount(): void
     {
         parent::mount();
