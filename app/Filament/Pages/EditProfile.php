@@ -147,7 +147,8 @@ class EditProfile extends Page implements HasSchemas
                             ->label(__('filament-panels::auth/pages/edit-profile.form.current_password.label'))
                             ->password()
                             ->required()
-                            ->currentPassword(),
+                            ->currentPassword()
+                            ->revealable(),
                         TextInput::make('password')
                             ->label(__('filament-panels::auth/pages/edit-profile.form.password.label'))
                             ->password()
@@ -155,12 +156,14 @@ class EditProfile extends Page implements HasSchemas
                             ->rule(Password::default())
                             ->autocomplete('new-password')
                             ->dehydrateStateUsing(fn ($state): string => Hash::make($state))
-                            ->same('passwordConfirmation'),
+                            ->same('passwordConfirmation')
+                            ->revealable(),
                         TextInput::make('passwordConfirmation')
                             ->label(__('filament-panels::auth/pages/edit-profile.form.password_confirmation.label'))
                             ->password()
                             ->required()
-                            ->dehydrated(false),
+                            ->dehydrated(false)
+                            ->revealable(),
                     ]),
             ])
             ->model($this->getUser())
