@@ -15,11 +15,13 @@ class SuperAdminSeeder extends Seeder
         User::factory()->create([
             'name' => 'Muhammad Aziz Prasetyo',
             'email' => '2110511095@mahasiswa.upnvj.ac.id',
+            'identity_number' => '2110511095',
         ]);
 
         User::factory()->create([
             'name' => 'Super Administrator',
             'email' => 'superadmin@example.test',
+            'identity_number' => '0886410922',
         ]);
     }
 }
