@@ -9,6 +9,8 @@ class Login extends BasePage
 {
     protected string $view = 'filament.pages.auth.login';
 
+    protected static string $layout = 'filament.components.layout.simple';
+
     public function mount(): void
     {
         parent::mount();
