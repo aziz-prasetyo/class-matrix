@@ -20,7 +20,7 @@ class LocalizedTimestamp implements CastsAttributes
         }
 
         // Get user timezone, if not available, use default from config
-        $userTimezone = auth()->user()?->timezone ?? config('app.timezone');
+        $userTimezone = auth()->user()->getAttribute('timezone');
 
         // Parse time from a database and convert to user timezone
         return Carbon::parse($value)->setTimezone($userTimezone);

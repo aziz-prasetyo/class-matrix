@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('timezone')->default(config('app.timezone', 'UTC'))->nullable(false)->after('password');
+            $table->string('identity_number')->unique()->after('email');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('timezone');
+            $table->dropColumn('identity_number');
         });
     }
 };

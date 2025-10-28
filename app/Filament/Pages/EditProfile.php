@@ -2,7 +2,14 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\User;
+use DateTime;
+use DateTimeZone;
+use Exception;
+use Filament\Forms\Components\Select;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Pages\Page;
+use Filament\Schemas\Components\Group;
 use Illuminate\Contracts\Support\Htmlable;
 use LogicException;
 use Filament\Actions\Action;
@@ -74,8 +81,57 @@ class EditProfile extends Page implements HasSchemas
                             ->email()
                             ->required()
                             ->unique(ignoreRecord: true),
+                        TextInput::make('identity_number')
+                            ->label(__('auth/pages/edit-profile.form.identity_number.label'))
+                            ->numeric()
+                            ->required()
+                            ->unique(ignoreRecord: true)
+                            ->helperText(__('auth/pages/edit-profile.form.identity_number.helper_text')),
+                    ])
+                    ->columnSpan([
+                        'xl' => 2,
+                        'lg' => 'full',
                     ]),
+                Group::make([
+                    Section::make([
+                        Select::make('timezone')
+                            ->label(__('auth/pages/edit-profile.form.timezone.label'))
+                            ->options(function () {
+                                $list = timezone_identifiers_list();
+
+                                return array_combine($list, array_map([$this, 'formatTimezoneLabel'], $list));
+                            })
+                            ->getSearchResultsUsing(function (string $search) {
+                                $allTimezones = timezone_identifiers_list();
+                                $filteredTimezones = array_filter(
+                                    $allTimezones,
+                                    fn($tz) => str_contains(strtolower($tz), strtolower($search))
+                                );
+
+                                $options = [];
+                                foreach ($filteredTimezones as $tz) {
+                                    $options[$tz] = $this->formatTimezoneLabel($tz);
+                                }
+
+                                return $options;
+                            })
+                            ->searchable(),
+                    ]),
+                    Section::make()
+                        ->schema([
+                            TextEntry::make('created_at')
+                                ->label(__('auth/pages/edit-profile.form.infolist.created_at.label'))
+                                ->state(fn (User $record): string => $record->created_at->locale(app()->getLocale())->isoFormat('L LTS')),
+                            TextEntry::make('updated_at')
+                                ->label(__('auth/pages/edit-profile.form.infolist.updated_at.label'))
+                                ->state(fn (User $record): string => $record->updated_at->locale(app()->getLocale())->isoFormat('L LTS')),
+                        ]),
+                ])->columnSpan([
+                    'xl' => 1,
+                    'lg' => 'full',
+                ]),
             ])
+            ->columns(3)
             ->model($this->getUser())
             ->statePath('profileData');
     }
@@ -91,7 +147,8 @@ class EditProfile extends Page implements HasSchemas
                             ->label(__('filament-panels::auth/pages/edit-profile.form.current_password.label'))
                             ->password()
                             ->required()
-                            ->currentPassword(),
+                            ->currentPassword()
+                            ->revealable(),
                         TextInput::make('password')
                             ->label(__('filament-panels::auth/pages/edit-profile.form.password.label'))
                             ->password()
@@ -99,12 +156,14 @@ class EditProfile extends Page implements HasSchemas
                             ->rule(Password::default())
                             ->autocomplete('new-password')
                             ->dehydrateStateUsing(fn ($state): string => Hash::make($state))
-                            ->same('passwordConfirmation'),
+                            ->same('passwordConfirmation')
+                            ->revealable(),
                         TextInput::make('passwordConfirmation')
                             ->label(__('filament-panels::auth/pages/edit-profile.form.password_confirmation.label'))
                             ->password()
                             ->required()
-                            ->dehydrated(false),
+                            ->dehydrated(false)
+                            ->revealable(),
                     ]),
             ])
             ->model($this->getUser())
@@ -156,7 +215,7 @@ class EditProfile extends Page implements HasSchemas
             ->submit('editPasswordForm');
     }
 
-    public function getUser(): Authenticatable & Model
+    public function getUser(): Authenticatable|Model
     {
         $user = Filament::auth()->user();
 
@@ -188,5 +247,17 @@ class EditProfile extends Page implements HasSchemas
             ->success()
             ->title(__('filament-panels::auth/pages/edit-profile.notifications.saved.title'))
             ->send();
+    }
+
+    private function formatTimezoneLabel(string $timezoneIdentifier): string
+    {
+        try {
+            $dateTime = new DateTime('now', new DateTimeZone($timezoneIdentifier));
+            $offsetString = $dateTime->format('P');
+
+            return "GMT{$offsetString} {$timezoneIdentifier}";
+        } catch (Exception $e) {
+            return $timezoneIdentifier;
+        }
     }
 }
