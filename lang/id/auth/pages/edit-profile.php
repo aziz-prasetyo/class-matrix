@@ -22,6 +22,18 @@ return [
             'label' => 'Zona waktu',
         ],
 
+        'infolist' => [
+
+            'created_at' => [
+                'label' => 'Tanggal pendaftaran'
+            ],
+
+            'updated_at' => [
+                'label' => 'Terakhir diperbarui'
+            ],
+
+        ],
+
     ],
 
 ];

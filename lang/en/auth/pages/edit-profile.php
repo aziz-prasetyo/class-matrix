@@ -22,6 +22,18 @@ return [
             'label' => 'Timezone',
         ],
 
+        'infolist' => [
+
+            'created_at' => [
+                'label' => 'Registration date'
+            ],
+
+            'updated_at' => [
+                'label' => 'Last modified at'
+            ],
+
+        ],
+
     ],
 
 ];

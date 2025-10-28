@@ -2,11 +2,14 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\User;
 use DateTime;
 use DateTimeZone;
 use Exception;
 use Filament\Forms\Components\Select;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Pages\Page;
+use Filament\Schemas\Components\Group;
 use Illuminate\Contracts\Support\Htmlable;
 use LogicException;
 use Filament\Actions\Action;
@@ -80,29 +83,40 @@ class EditProfile extends Page implements HasSchemas
                             ->unique(ignoreRecord: true),
                     ])
                     ->columnSpan(['lg' => 2]),
-                Section::make([
-                    Select::make('timezone')
-                        ->label(__('auth/pages/edit-profile.form.timezone.label'))
-                        ->options(function () {
-                            $list = timezone_identifiers_list();
+                Group::make([
+                    Section::make([
+                        Select::make('timezone')
+                            ->label(__('auth/pages/edit-profile.form.timezone.label'))
+                            ->options(function () {
+                                $list = timezone_identifiers_list();
 
-                            return array_combine($list, array_map([$this, 'formatTimezoneLabel'], $list));
-                        })
-                        ->getSearchResultsUsing(function (string $search) {
-                            $allTimezones = timezone_identifiers_list();
-                            $filteredTimezones = array_filter(
-                                $allTimezones,
-                                fn($tz) => str_contains(strtolower($tz), strtolower($search))
-                            );
+                                return array_combine($list, array_map([$this, 'formatTimezoneLabel'], $list));
+                            })
+                            ->getSearchResultsUsing(function (string $search) {
+                                $allTimezones = timezone_identifiers_list();
+                                $filteredTimezones = array_filter(
+                                    $allTimezones,
+                                    fn($tz) => str_contains(strtolower($tz), strtolower($search))
+                                );
 
-                            $options = [];
-                            foreach ($filteredTimezones as $tz) {
-                                $options[$tz] = $this->formatTimezoneLabel($tz);
-                            }
+                                $options = [];
+                                foreach ($filteredTimezones as $tz) {
+                                    $options[$tz] = $this->formatTimezoneLabel($tz);
+                                }
 
-                            return $options;
-                        })
-                        ->searchable(),
+                                return $options;
+                            })
+                            ->searchable(),
+                    ]),
+                    Section::make()
+                        ->schema([
+                            TextEntry::make('created_at')
+                                ->label(__('auth/pages/edit-profile.form.infolist.created_at.label'))
+                                ->state(fn (User $record): string => $record->created_at->locale(app()->getLocale())->isoFormat('L LTS')),
+                            TextEntry::make('updated_at')
+                                ->label(__('auth/pages/edit-profile.form.infolist.updated_at.label'))
+                                ->state(fn (User $record): string => $record->updated_at->locale(app()->getLocale())->isoFormat('L LTS')),
+                        ]),
                 ]),
             ])
             ->columns(3)
