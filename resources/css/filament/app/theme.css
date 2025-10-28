@@ -47,3 +47,11 @@
         background: linear-gradient(to right, var(--color-gray-100) 2rem, transparent 2rem);
     }
 }
+
+.dark .fi-topbar-ctn::before {
+    background: none;
+
+    @media(width >= 64rem) {
+        background: linear-gradient(to right, var(--color-gray-900) 2rem, transparent 2rem);
+    }
+}
