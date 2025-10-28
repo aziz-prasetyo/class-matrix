@@ -79,7 +79,11 @@ class AppPanelProvider extends PanelProvider
             $switch
                 ->locales(['en','id'])
                 ->visible(outsidePanels: true)
-                ->outsidePanelPlacement(Placement::TopRight);
+                ->outsidePanelPlacement(Placement::TopRight)
+                ->flags([
+                    'en' => asset('images/flags/gb.svg'),
+                    'id' => asset('images/flags/id.svg'),
+                ]);
         });
     }
 }
