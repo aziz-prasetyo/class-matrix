@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\EditProfile;
 use Awcodes\LightSwitch\LightSwitchPlugin;
 use BezhanSalleh\LanguageSwitch\Enums\Placement;
@@ -33,7 +34,7 @@ class AppPanelProvider extends PanelProvider
             ->default()
             ->id('app')
             ->path('app')
-            ->login()
+            ->login(Login::class)
             ->userMenuItems([
                 'profile' => Action::make('profile')
                     ->label(fn () => __('filament-panels::auth/pages/edit-profile.label'))
