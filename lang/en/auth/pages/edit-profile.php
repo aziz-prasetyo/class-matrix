@@ -16,4 +16,12 @@ return [
 
     ],
 
+    'form' => [
+
+        'timezone' => [
+            'label' => 'Timezone',
+        ],
+
+    ],
+
 ];

@@ -82,7 +82,7 @@ class EditProfile extends Page implements HasSchemas
                     ->columnSpan(['lg' => 2]),
                 Section::make([
                     Select::make('timezone')
-                        ->label('Timezone')
+                        ->label(__('auth/pages/edit-profile.form.timezone.label'))
                         ->options(function () {
                             $list = timezone_identifiers_list();
 
