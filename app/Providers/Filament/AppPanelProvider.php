@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Components\Link\BackToHome;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\EditProfile;
 use Awcodes\LightSwitch\LightSwitchPlugin;
@@ -16,8 +17,11 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Facades\FilamentView;
 use Filament\Support\Icons\Heroicon;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
+use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -86,5 +90,9 @@ class AppPanelProvider extends PanelProvider
                     'id' => asset('images/flags/id.svg'),
                 ]);
         });
+
+        $renderBackToHome = fn (): View => app(BackToHome::class)->render();
+
+        FilamentView::registerRenderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, $renderBackToHome);
     }
 }
