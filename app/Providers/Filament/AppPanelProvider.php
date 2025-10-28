@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Components\Link\BackToHome;
+use App\Filament\Components\Page\Footer;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\EditProfile;
 use Awcodes\LightSwitch\LightSwitchPlugin;
@@ -92,7 +93,9 @@ class AppPanelProvider extends PanelProvider
         });
 
         $renderBackToHome = fn (): View => app(BackToHome::class)->render();
+        $renderFooter = fn (): View => app(Footer::class)->render();
 
         FilamentView::registerRenderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, $renderBackToHome);
+        FilamentView::registerRenderHook(PanelsRenderHook::FOOTER, $renderFooter);
     }
 }
