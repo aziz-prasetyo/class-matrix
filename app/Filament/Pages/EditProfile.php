@@ -82,7 +82,10 @@ class EditProfile extends Page implements HasSchemas
                             ->required()
                             ->unique(ignoreRecord: true),
                     ])
-                    ->columnSpan(['lg' => 2]),
+                    ->columnSpan([
+                        'xl' => 2,
+                        'lg' => 'full',
+                    ]),
                 Group::make([
                     Section::make([
                         Select::make('timezone')
@@ -117,6 +120,9 @@ class EditProfile extends Page implements HasSchemas
                                 ->label(__('auth/pages/edit-profile.form.infolist.updated_at.label'))
                                 ->state(fn (User $record): string => $record->updated_at->locale(app()->getLocale())->isoFormat('L LTS')),
                         ]),
+                ])->columnSpan([
+                    'xl' => 1,
+                    'lg' => 'full',
                 ]),
             ])
             ->columns(3)
