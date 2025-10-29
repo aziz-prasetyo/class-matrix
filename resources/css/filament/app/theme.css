@@ -56,3 +56,21 @@
         background: linear-gradient(to right, var(--color-gray-900) 2rem, transparent 2rem);
     }
 }
+
+.fi-sidebar-nav {
+    scrollbar-gutter: auto !important;
+
+    @media(width >= 64rem) {
+        scrollbar-gutter: auto !important;
+    }
+}
+
+.fi-body-has-sidebar-collapsible-on-desktop:not(:has(.fi-main-ctn.fi-main-ctn-sidebar-open)) > .fi-topbar-ctn::before {
+    @media (width >= 64rem) {
+        width: calc(100% - var(--collapsed-sidebar-width));
+    }
+}
+
+.fi-sidebar-item.fi-active .fi-sidebar-item-btn {
+    transition-property: opacity;
+}

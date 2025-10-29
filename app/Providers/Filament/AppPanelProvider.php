@@ -40,6 +40,7 @@ class AppPanelProvider extends PanelProvider
             ->id('app')
             ->path('app')
             ->brandLogo(fn () => view('filament.components.page.brand-logo'))
+            ->brandLogoHeight('unset')
             ->login(Login::class)
             ->userMenuItems([
                 'profile' => Action::make('profile')
@@ -48,6 +49,7 @@ class AppPanelProvider extends PanelProvider
                     ->icon(Heroicon::UserCircle)
             ])
             ->defaultThemeMode(ThemeMode::Light)
+            ->sidebarCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
