@@ -39,6 +39,7 @@ class AppPanelProvider extends PanelProvider
             ->default()
             ->id('app')
             ->path('app')
+            ->brandLogo(fn () => view('filament.components.page.brand-logo'))
             ->login(Login::class)
             ->userMenuItems([
                 'profile' => Action::make('profile')
