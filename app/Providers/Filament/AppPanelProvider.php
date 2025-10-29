@@ -2,6 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Components\Link\BackToHome;
+use App\Filament\Components\Page\Footer;
+use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\EditProfile;
 use Awcodes\LightSwitch\LightSwitchPlugin;
 use BezhanSalleh\LanguageSwitch\Enums\Placement;
@@ -15,8 +18,11 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Facades\FilamentView;
 use Filament\Support\Icons\Heroicon;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
+use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -33,7 +39,9 @@ class AppPanelProvider extends PanelProvider
             ->default()
             ->id('app')
             ->path('app')
-            ->login()
+            ->brandLogo(fn () => view('filament.components.page.brand-logo'))
+            ->brandLogoHeight('unset')
+            ->login(Login::class)
             ->userMenuItems([
                 'profile' => Action::make('profile')
                     ->label(fn () => __('filament-panels::auth/pages/edit-profile.label'))
@@ -41,6 +49,7 @@ class AppPanelProvider extends PanelProvider
                     ->icon(Heroicon::UserCircle)
             ])
             ->defaultThemeMode(ThemeMode::Light)
+            ->sidebarCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
@@ -85,5 +94,11 @@ class AppPanelProvider extends PanelProvider
                     'id' => asset('images/flags/id.svg'),
                 ]);
         });
+
+        $renderBackToHome = fn (): View => app(BackToHome::class)->render();
+        $renderFooter = fn (): View => app(Footer::class)->render();
+
+        FilamentView::registerRenderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, $renderBackToHome);
+        FilamentView::registerRenderHook(PanelsRenderHook::FOOTER, $renderFooter);
     }
 }
