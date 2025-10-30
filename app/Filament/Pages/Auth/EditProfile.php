@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Pages;
+namespace App\Filament\Pages\Auth;
 
 use App\Models\User;
 use DateTime;
@@ -70,8 +70,8 @@ class EditProfile extends Page implements HasSchemas
     {
         return $schema
             ->components([
-                Section::make(__('auth/pages/edit-profile.section.profile.label'))
-                    ->description(__('auth/pages/edit-profile.section.profile.description'))
+                Section::make(__('pages/auth/edit-profile.section.profile.label'))
+                    ->description(__('pages/auth/edit-profile.section.profile.description'))
                     ->schema([
                         TextInput::make('name')
                             ->label(__('filament-panels::auth/pages/edit-profile.form.name.label'))
@@ -82,11 +82,11 @@ class EditProfile extends Page implements HasSchemas
                             ->required()
                             ->unique(ignoreRecord: true),
                         TextInput::make('identity_number')
-                            ->label(__('auth/pages/edit-profile.form.identity_number.label'))
+                            ->label(__('pages/auth/edit-profile.form.identity_number.label'))
                             ->numeric()
                             ->required()
                             ->unique(ignoreRecord: true)
-                            ->helperText(__('auth/pages/edit-profile.form.identity_number.helper_text')),
+                            ->helperText(__('pages/auth/edit-profile.form.identity_number.helper_text')),
                     ])
                     ->columnSpan([
                         'xl' => 2,
@@ -95,7 +95,7 @@ class EditProfile extends Page implements HasSchemas
                 Group::make([
                     Section::make([
                         Select::make('timezone')
-                            ->label(__('auth/pages/edit-profile.form.timezone.label'))
+                            ->label(__('pages/auth/edit-profile.form.timezone.label'))
                             ->options(function () {
                                 $list = timezone_identifiers_list();
 
@@ -120,10 +120,10 @@ class EditProfile extends Page implements HasSchemas
                     Section::make()
                         ->schema([
                             TextEntry::make('created_at')
-                                ->label(__('auth/pages/edit-profile.form.infolist.created_at.label'))
+                                ->label(__('pages/auth/edit-profile.form.infolist.created_at.label'))
                                 ->state(fn (User $record): string => $record->created_at->locale(app()->getLocale())->isoFormat('L LTS')),
                             TextEntry::make('updated_at')
-                                ->label(__('auth/pages/edit-profile.form.infolist.updated_at.label'))
+                                ->label(__('pages/auth/edit-profile.form.infolist.updated_at.label'))
                                 ->state(fn (User $record): string => $record->updated_at->locale(app()->getLocale())->isoFormat('L LTS')),
                         ]),
                 ])->columnSpan([
@@ -140,8 +140,8 @@ class EditProfile extends Page implements HasSchemas
     {
         return $schema
             ->components([
-                Section::make(__('auth/pages/edit-profile.section.password.label'))
-                    ->description(__('auth/pages/edit-profile.section.profile.description'))
+                Section::make(__('pages/auth/edit-profile.section.password.label'))
+                    ->description(__('pages/auth/edit-profile.section.profile.description'))
                     ->schema([
                         TextInput::make('current_password')
                             ->label(__('filament-panels::auth/pages/edit-profile.form.current_password.label'))

@@ -5,7 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Components\Link\BackToHome;
 use App\Filament\Components\Page\Footer;
 use App\Filament\Pages\Auth\Login;
-use App\Filament\Pages\EditProfile;
+use App\Filament\Pages\Auth\EditProfile;
 use Awcodes\LightSwitch\LightSwitchPlugin;
 use BezhanSalleh\LanguageSwitch\Enums\Placement;
 use BezhanSalleh\LanguageSwitch\LanguageSwitch;
